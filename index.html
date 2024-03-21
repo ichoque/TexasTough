@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/settings.js" defer></script>
+    <script src="js/keyboard.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/keyboard.css">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,900&amp;display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Interactive Sales Kiosk</title>`
+</head>
+
+<body id="body" scroll="no">
+    <!-- restore this to disable right click oncontextmenu="return false"> -->
+    <div class="container" id="container">
+        <div class='homePage' style="visibility: visible">
+            <div class="home-title-home">VEHICLE CUSTOMIZER</div>
+            <div class="home-corner-bg"><img src="img/home-corner-bg-logo.png" /></div>
+            <ul class="home-slide">
+            </ul>
+            <div class="home-slide-buttons">
+                <div class="arrow-lg" id="homeSlideArrowL">
+                    <img src="img/arrow-lg-l.png" />
+                </div>
+                <div class="arrow-lg" id="homeSlideArrowR">
+                    <img src="img/arrow-lg-r.png" />
+                </div>
+            </div>
+        </div>
+        <div class="admin-page" style="visibility: hidden">
+            <div class="admin-page-background"></div>
+            <div class="pin-box" style="visibility: hidden">
+                <form>
+                    <input class="pin-input" type="text" autocomplete="off" placeholder="PIN">
+                </form>
+                <div class="pin-show-pass"></div>
+                <div class="simple-keyboard"></div>
+            </div>
+            <div class="admin-menu" style="visibility: hidden">
+                <div class="admin-menu-title">Settings</div>
+                <div class="admin-menu-rule"></div>
+                <div class="admin-menu-radio">
+                    <input type="radio" id="consumerPrice" name="pricingCF" value="consumer">
+                    <label for="consumer">Consumer</label>
+                    <input type="radio" id="hidePrice" name="pricingCF" value="hide">
+                    <label for="hide">Hide Pricing</label>
+                </div>
+                <div class="admin-menu-subtitle">Payments</div>
+                <div class="admin-menu-rule"></div>
+                <div class="admin-menu-radio">
+                    <input type="radio" id="monthlyPayment" name="paymentsMT" value="monthly">
+                    <label for="monthly">Monthly</label>
+                    <input type="radio" id="totalPayment" name="paymentsMT" value="total">
+                    <label for="total">Total</label>
+                </div>
+                <div class="admin-menu-entry">APR:
+                    <input type="text" id="APR" type="number" class="admin-menu-input"
+                        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"> %
+                </div>
+                <div class="admin-menu-entry"># of Months:
+                    <input type="text" id="numMonths" type="number" class="admin-menu-input"
+                        onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                </div>
+                <div class="admin-menu-entry">Down payment: $
+                    <input type="text" id="downPayment" type="number" class="admin-menu-input" style="width: 120px;"
+                        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;">
+                </div>
+                <div class="admin-menu-entry">Sales Tax:
+                    <input type="text" id="tax" type="number" class="admin-menu-input"
+                        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"> %
+                </div>
+                <div class="admin-menu-buttons">
+                    <div class="admin-menu-button">
+                        <button class="admin-menu-button" onclick="clearAdmin()">Cancel</button>
+                    </div>
+                    <div class="admin-menu-button">
+                        <button class="admin-menu-button" onclick="clearCart()">Clear Cart</button>
+                    </div>
+                    <div class="admin-menu-button">
+                        <button class="admin-menu-button" id="saveButton" onclick="saveSettings()">Save
+                            Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='packagePage' style="visibility: hidden">
+            <div class="home-title" id="packagePage-title">VEHICLE CUSTOMIZER
+            </div>
+            <div class="home-corner-bg"><img src="img/home-corner-bg.png" /></div>
+            <div class="blur-overlay"></div>
+            <div class="packagePage-slide"><img src="img/home-slide-05.jpg" /></div>
+            <div class="package-boxes-container">
+                <div class="package-boxes">
+                    <div class="package-box">
+                        <div class="package-box-img"></div>
+                        <div class="package-box-strip"></div>
+                        <div class="package-box-text">
+                            <div class="package-title">Bronze Package</div>
+                            <div class="package-description">Short description text of one or two lines.Short
+                                description text of one or two lines.</div>
+                            <ul class="package-details">
+                                <li>Detail One</li>
+                                <li>Detail Two</li>
+                                <li>Detail Three</li>
+                                <li>Detail Four</li>
+                                <li>Detail Five</li>
+                                <li>Detail Six</li>
+                            </ul>
+                            <div class="package-price">$25/mo</div>
+                            <div class="package-savings">$25/mo</div>
+                            <div class="package-details-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='productPage' style="visibility: hidden">
+            <div class="productPage-title">
+            </div>
+            <div class="productPage-corner-bg"><img src="img/package-bg.png" /></div>
+            <div class="productPage-corner-bg" style="left:-70px; top:-40px"><img src="img/package-bg.png" /></div>
+            <div class="blur-overlay"></div>
+            <div class="productPage-slide"><img src="img/background-02.jpg" /></div>
+            <div class="product-boxes-container">
+                <div class="product-boxes">
+                    <div class="product-box">
+                        <div class="product-box-text">
+                            <div class="product-title"></div>
+                            <div class="product-box-img"></div>
+                            <div class="product-description"></div>
+                            <div class="product-price"></div>
+                            <div class="product-details-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-slide-buttons">
+                <div class="arrow-lg" id="productArrowL" style="top:0px; left: 314px"><img src="img/arrow-lg-l.png" />
+                </div>
+                <div class="arrow-lg" id="productArrowR" style="top:-100px; left: 1844px"><img
+                        src="img/arrow-lg-r.png" /></div>
+            </div>
+        </div>
+        <div class='packageDetailPage' id="packageDetailPage">
+            <div class="home-title" id="packageDetail-title">
+            </div>
+            <div class="home-corner-bg" id="detail-corner-bg"><img src="img/home-corner-bg.png" /></div>
+            <div class="blur-overlay-detail"></div>
+
+            <div class="close-icon" onclick="closeDetails()"></div>
+
+
+            <div class="package-detail-box"></div>
+
+            <div class="product-slide-buttons">
+                <div class="arrow-lg" id="packagedetailArrowL" style="top:100px; left: 314px"><img
+                        src="img/arrow-lg-l.png" /></div>
+                <div class="arrow-lg" id="packagedetailArrowR" style="top:0px; left: 1844px"><img
+                        src="img/arrow-lg-r.png" /></div>
+            </div>
+        </div>
+        <div class="subcatCont"></div>
+        <div class="menu">
+            <div class="menu-line"></div>
+            <div class="buttons">
+                <ul class="home-cart-icons">
+                    <li class="home-icon"><img src="img/home-icon.png" /></li>
+                    <li class="admin-icon"><img src="img/admin-icon.png" /></li>
+                    <li class="cart-icon"><img src="img/cart-icon.png" /></li>
+                    <li class="vehicle-icon" style="display: none;"><img src="img/vehicle-icon.png" /></li>
+                </ul>
+                <div class="cart-notification"></div>
+                <ul class="selectors">
+                    <li class="selector-button s-glow" id="menu01">PACKAGES <img class="arrow-sm-r" style="left:22px"
+                            src="img/arrow-r.svg" /></li>
+                    <li class="selector-button" id="menu02" style="display:none">A LA CARTE<img class="arrow-sm-r"
+                            src="img/arrow-r-lt.svg" /></li>
+                </ul>
+                <div class="button-arrows" id="menuArrows">
+                    <button class="menu-arrow" id="menuArrowR"><img class="arrow-sm" style="left:1864px; top:-106px"
+                            src="img/arrow-sm-r.png" /></button>
+                    <button class="menu-arrow" id="menuArrowL"><img class="arrow-sm" style="left:364px;  top:-106px; "
+                            src="img/arrow-sm-l.png" /></button>
+                </div>
+                <div class="button-row-container">
+                    <div class="button-row" id="menuRow01">
+                    </div>
+                    <div class="button-row" id="menuRow02" style="top:-104px; visibility: hidden;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-container" style="visibility: hidden;">
+            <div class="order-background"></div>
+            <div class="order-info">
+                <div class="close-icon" style="top:-10px; left:600px; z-index: 20;" onclick="clearAdmin()"></div>
+                <div class="order-enter-name">Customer Name</div>
+                <div class="order-rule"></div>
+                <div class="order-entry">
+                    <input type="text" id="customer-name" class="order-input" placeholder="Enter name">
+                </div>
+                <div class="order-enter-name">Email Address</div>
+                <div class="order-rule"></div>
+                <div class="order-entry">
+                    <input type="text" id="customer-email" class="order-input" placeholder="Enter email">
+                </div>
+                <div class="order-enter-name">Salesperson</div>
+                <div class="order-rule"></div>
+                <div class="order-entry">
+                    <input type="text" id="sales-person" class="order-input" placeholder="Enter sales person">
+                </div>
+                <div class="order-footer">
+                    <button class="order-clear" onclick="clearCart()">Clear Cart</button>
+                    <button class="order-restore" onclick="restoreCart()">Restore Cart</button>
+                    <button class="order-email" onclick="sendOrder()">Submit Order</button>
+                </div>
+            </div>
+            <div class="order-page">
+                <div class="order-logo"></div>
+                <div class="order-header">Order Review</div>
+                <div class="order-name"></div>
+                <div class="order-header-subtitle">Review your order below.</div>
+                <div class="order-body">
+                    <div class="order-items">
+                        <div class="order-item">
+                            Product 1
+                            <span class="order-price">$0.00</span>
+                        </div>
+                        <div class="order-item">
+                            Product 2
+                            <span class="price">$0.00</span>
+                        </div>
+                    </div>
+                    <div id="order-totals">
+                        <p class="order-listtotals">
+                            <span class="order-subtotals">Subtotal</span>
+                            <span class="order-price" id="subtotal">$0.00</span>
+                        </p>
+                        <p class="order-listtotals">
+                            <span class="order-subtotals">Sales Tax</span>
+                            <span class="order-price" id="tax">$0.00</span>
+                        </p>
+                        <p class="order-listtotals">
+                            <span class="order-subtotals">Total</span>
+                            <span class="order-price" id="total">$0.00</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+<script src="js/ui-settings.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/script.js" defer></script>
+
+</html>
